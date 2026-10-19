@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount the SQLite file so data persists across container restarts
+      - sqlite_data:/var/www/html/database
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      DB_CONNECTION: sqlite
+      # Optional: set your OpenAI key here or leave blank for keyword fallback
+      OPENAI_API_KEY: ""
+
+volumes:
+  sqlite_data:
